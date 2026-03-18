@@ -8,11 +8,13 @@ create table user (
   role enum('admin', 'collaborator') not null
 );
 
+-- cette façon de gerer les dates laisse SQL faire et ainsi pas besoin de m en occuper dans le reste du code
 create table project (
   id int AUTO_INCREMENT primary key,
   title varchar(100) not null,
   description text,
-  created_at datetime default current_timestamp
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 create table task (
@@ -20,9 +22,9 @@ create table task (
   title varchar(100) not null,
   description text,
   status ENUM('todo','in_progress','done') DEFAULT 'todo',
-  created_at datetime default current_timestamp,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   project_id int not null,
-
   constraint fk_task_project
     foreign key(project_id) references project(id) on delete cascade
 );
