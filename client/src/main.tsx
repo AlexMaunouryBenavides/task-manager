@@ -9,6 +9,7 @@ import { RouterProvider, createBrowserRouter } from "react-router";
 import App from "./App";
 import Project from "./pages/Project";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
   },
   { path: "/register", element: <Register /> },
   { path: "/project", element: <Project /> },
+  { path: "/dashboard", element: <Dashboard /> },
   // Try adding a new route! For example, "/about" with an About component
 ]);
 
