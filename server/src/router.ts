@@ -14,75 +14,75 @@ const route = express.Router();
 route.post("/api/v1/register", userController.add);
 route.post("/api/v1/login", userController.login);
 route.get(
-   "/api/v1/users",
-   auth.verifyToken,
-   auth.verifyRole([UserRole.ADMIN]),
-   userController.browse,
+  "/api/v1/users",
+  auth.verifyToken,
+  auth.verifyRole([UserRole.ADMIN]),
+  userController.browse,
 );
 // Projects
 route.get(
-   "/api/v1/projects",
-   auth.verifyToken,
-   auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-   projectController.browse,
+  "/api/v1/projects",
+  auth.verifyToken,
+  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
+  projectController.browse,
 );
 route.get(
-   "/api/v1/projects/:id",
-   auth.verifyToken,
-   auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-   projectController.read,
+  "/api/v1/projects/:id",
+  auth.verifyToken,
+  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
+  projectController.read,
 );
 
 route.post(
-   "/api/v1/projects",
-   auth.verifyToken,
-   auth.verifyRole([UserRole.ADMIN]),
-   projectController.add,
+  "/api/v1/projects",
+  auth.verifyToken,
+  auth.verifyRole([UserRole.ADMIN]),
+  projectController.add,
 );
 route.patch(
-   "/api/v1/projects/:id",
-   auth.verifyToken,
-   auth.verifyRole([UserRole.ADMIN]),
-   projectController.edit,
+  "/api/v1/projects/:id",
+  auth.verifyToken,
+  auth.verifyRole([UserRole.ADMIN]),
+  projectController.edit,
 );
 route.delete(
-   "/api/v1/projects/:id",
-   auth.verifyToken,
-   auth.verifyRole([UserRole.ADMIN]),
-   projectController.destroy,
+  "/api/v1/projects/:id",
+  auth.verifyToken,
+  auth.verifyRole([UserRole.ADMIN]),
+  projectController.destroy,
 );
 
 // Tasks
 route.get(
-   "/api/v1/tasks",
-   auth.verifyToken,
-   auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-   taskController.browse,
+  "/api/v1/tasks",
+  auth.verifyToken,
+  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
+  taskController.browse,
 );
 route.get(
-   "/api/v1/tasks/:id",
-   auth.verifyToken,
-   auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-   taskController.read,
+  "/api/v1/tasks/:id",
+  auth.verifyToken,
+  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
+  taskController.read,
 );
 
 route.post(
-   "/api/v1/tasks",
-   auth.verifyToken,
-   auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-   taskController.add,
+  "/api/v1/tasks",
+  auth.verifyToken,
+  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
+  taskController.add,
 );
 route.patch(
-   "/api/v1/tasks/:id",
-   auth.verifyToken,
-   auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-   taskController.edit,
+  "/api/v1/tasks/:id",
+  auth.verifyToken,
+  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
+  taskController.edit,
 );
 route.delete(
-   "/api/v1/tasks/:id",
-   auth.verifyToken,
-   auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-   taskController.destroy,
+  "/api/v1/tasks/:id",
+  auth.verifyToken,
+  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
+  taskController.destroy,
 );
 
 /* ************************************************************************* */
