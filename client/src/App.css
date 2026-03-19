@@ -1,1 +1,15 @@
 @import "tailwindcss";
+body {
+  background-color: var(--color-blue-50);
+  font-family: var(--font-tm-text);
+  font-size: 20px;
+  font-weight: 200;
+}
+
+@theme {
+  --font-title: "Limelight", cursive;
+  --font-text: "Kanit", sans-serif;
+
+  --font-tm-title: var(--font-title);
+  --font-tm-text: var(--font-text);
+}
