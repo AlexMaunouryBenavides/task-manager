@@ -1,8 +1,9 @@
 import dotenv from "dotenv";
-import type { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, RequestHandler, Response } from "express";
 import jwt from "jsonwebtoken";
 import type AuthUser from "../modules/interfaces/AuthUser";
 import isJwtUserPayload from "../utils/isJwtUserPayload";
+import type { UserRole } from "../modules/interfaces/IUser";
 
 dotenv.config();
 
@@ -15,12 +16,9 @@ export interface AuthRequest extends Request {
 // verifier si le token correspond a un user (collaborator ou admin)
 // choper les infos pour identifications dans req
 
-const verifyToken = async (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction,
-) => {
+const verifyToken: RequestHandler = async (req, res, next) => {
   const token = req.cookies.access_token;
+
   if (!token) {
     res.status(401).json({ message: "acces denied" });
     return;
@@ -38,7 +36,7 @@ const verifyToken = async (
       res.status(401).json({ message: "Invalid token" });
       return;
     }
-    req.user = { id: userId, role: decoded.role };
+    req.user = { id: userId, role: decoded.role as UserRole };
 
     next();
   } catch (error) {
@@ -48,8 +46,8 @@ const verifyToken = async (
 };
 
 // fonction pour fabriquer un middleware ( genre controller) pour verifier ( si tu as tel role tu passe sinon non )
-const verifyRole = (allowedRoles: string[]) => {
-  return (req: AuthRequest, res: Response, next: NextFunction) => {
+const verifyRole = (allowedRoles: string[]): RequestHandler => {
+  return (req, res, next) => {
     if (!req.user) {
       res.status(401).json({ message: "invalide credentials" });
       return;

@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
-import type { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, RequestHandler, Response } from "express";
 import jwt from "jsonwebtoken";
 import type IUser from "../interfaces/IUser";
 import { UserRole } from "../interfaces/IUser";
@@ -11,6 +11,28 @@ const browse = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const users = await UserRepository.read();
     res.json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+const readCurrentUser: RequestHandler = async (req, res, next) => {
+  try {
+    const userId = req.user;
+    console.log("req", req);
+    if (!userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+    const user = await UserRepository.readOne(userId.id);
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+    res.json({
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    });
   } catch (error) {
     next(error);
   }
@@ -66,4 +88,4 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { browse, add, login };
+export default { browse, add, login, readCurrentUser };

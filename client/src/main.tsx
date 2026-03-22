@@ -10,6 +10,9 @@ import App from "./App";
 import Project from "./pages/Project";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import { AuthProvider } from "./utils/AuthProvider";
+import RoleRoute from "./utils/RoleRoute";
+import { Login } from "./pages/Login";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -17,6 +20,9 @@ import Dashboard from "./pages/Dashboard";
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
 
+// const Protected = ({children}) =>{
+//   const token =
+// }
 /* ************************************************************************* */
 
 // Create router configuration with routes
@@ -27,8 +33,23 @@ const router = createBrowserRouter([
     element: <App />, // Renders the App component for the home page
   },
   { path: "/register", element: <Register /> },
-  { path: "/project", element: <Project /> },
-  { path: "/dashboard", element: <Dashboard /> },
+  { path: "/login", element: <Login /> },
+  {
+    path: "/project",
+    element: (
+      <RoleRoute roles={["ADMIN", "COLLABORATOR"]}>
+        <Project />
+      </RoleRoute>
+    ),
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <RoleRoute roles={["ADMIN", "COLLABORATOR"]}>
+        <Dashboard />
+      </RoleRoute>
+    ),
+  },
   // Try adding a new route! For example, "/about" with an About component
 ]);
 
@@ -43,7 +64,9 @@ if (rootElement == null) {
 // Render the app inside the root element
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 );
 
