@@ -5,13 +5,10 @@ type IUserRow = IUser & RowDataPacket;
 
 class UserRepository {
   async create(user: Omit<IUser, "id">): Promise<number> {
-    const [result] = await databaseClient.query<ResultSetHeader>("insert into user (name,lastname,email,password,role) VALUES (?,?,?,?,?)", [
-      user.name,
-      user.lastname ?? null,
-      user.email,
-      user.password,
-      user.role,
-    ]);
+    const [result] = await databaseClient.query<ResultSetHeader>(
+      "insert into user (name,lastname,email,password,role) VALUES (?,?,?,?,?)",
+      [user.name, user.lastname ?? null, user.email, user.password, user.role],
+    );
     if (result.affectedRows === 0) {
       throw new Error("Insert user failed");
     }
@@ -23,11 +20,17 @@ class UserRepository {
     return rows;
   }
   async readOne(id: number): Promise<IUser> {
-    const [rows] = await databaseClient.query<IUserRow[]>("select * from user where id=?", [id]);
+    const [rows] = await databaseClient.query<IUserRow[]>(
+      "select * from user where id=?",
+      [id],
+    );
     return rows[0];
   }
   async readByMail(email: string): Promise<IUser | undefined> {
-    const [rows] = await databaseClient.query<IUserRow[]>("select * from user where email = ?", [email]);
+    const [rows] = await databaseClient.query<IUserRow[]>(
+      "select * from user where email = ?",
+      [email],
+    );
     return rows[0];
   }
 
@@ -42,11 +45,17 @@ class UserRepository {
     //   prepare tableau des valeurs a injecter
     const values = [...Object.values(user), id];
 
-    const [result] = await databaseClient.query<ResultSetHeader>(`update user set ${setColumns} where id = ?`, values);
+    const [result] = await databaseClient.query<ResultSetHeader>(
+      `update user set ${setColumns} where id = ?`,
+      values,
+    );
     return result.affectedRows > 0;
   }
   async delete(id: number): Promise<boolean> {
-    const [result] = await databaseClient.query<ResultSetHeader>("delete from user where id = ?", [id]);
+    const [result] = await databaseClient.query<ResultSetHeader>(
+      "delete from user where id = ?",
+      [id],
+    );
 
     return result.affectedRows > 0;
   }

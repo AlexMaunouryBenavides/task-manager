@@ -2,8 +2,8 @@ import dotenv from "dotenv";
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 import jwt from "jsonwebtoken";
 import type AuthUser from "../modules/interfaces/AuthUser";
-import isJwtUserPayload from "../utils/isJwtUserPayload";
 import type { UserRole } from "../modules/interfaces/IUser";
+import isJwtUserPayload from "../utils/isJwtUserPayload";
 
 dotenv.config();
 

@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import {
+  type ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface User {
   id: number;
@@ -32,7 +38,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       .catch(() => setUser(null))
       .finally(() => setLoading(false));
   }, []);
-  return <AuthContext.Provider value={{ user, loading, setUser }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, loading, setUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => useContext(AuthContext);

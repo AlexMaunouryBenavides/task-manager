@@ -7,12 +7,12 @@ import { RouterProvider, createBrowserRouter } from "react-router";
 
 // Import the main app component
 import App from "./App";
+import Dashboard from "./pages/Dashboard";
+import { Login } from "./pages/Login";
 import Project from "./pages/Project";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
 import { AuthProvider } from "./utils/AuthProvider";
 import RoleRoute from "./utils/RoleRoute";
-import { Login } from "./pages/Login";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
