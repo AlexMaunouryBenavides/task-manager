@@ -13,7 +13,8 @@ const useFetch = <T,>(url: string) => {
         const json = await res.json();
         setData(json.results ?? []);
       } catch (error: unknown) {
-        const message = error instanceof Error ? error.message : "Erreur inconnue";
+        const message =
+          error instanceof Error ? error.message : "Erreur inconnue";
         setError(message);
       } finally {
         setLoading(false);
