@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/v1/me", {
+    fetch("http://localhost:3310/api/v1/me", {
       credentials: "include",
     })
       .then((res) => {

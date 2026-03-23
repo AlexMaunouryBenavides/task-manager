@@ -13,7 +13,6 @@ const RoleRoute = ({ children, roles }: Props) => {
   if (loading) return <div>Loading...</div>;
 
   if (!user) return <Navigate to="/login" replace />;
-  console.log(user.role);
 
   if (!roles.includes(user.role.toUpperCase())) {
     return <Navigate to="/login" replace />;

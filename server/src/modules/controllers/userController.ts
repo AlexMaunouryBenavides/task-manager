@@ -18,7 +18,7 @@ const browse = async (req: Request, res: Response, next: NextFunction) => {
 const readCurrentUser: RequestHandler = async (req, res, next) => {
   try {
     const userId = req.user;
-    console.log("req", req);
+
     if (!userId) {
       res.status(401).json({ message: "Unauthorized" });
       return;
