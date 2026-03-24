@@ -20,9 +20,6 @@ import RoleRoute from "./utils/RoleRoute";
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
 
-// const Protected = ({children}) =>{
-//   const token =
-// }
 /* ************************************************************************* */
 
 // Create router configuration with routes

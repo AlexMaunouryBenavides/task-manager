@@ -18,6 +18,7 @@ export interface AuthRequest extends Request {
 
 const verifyToken: RequestHandler = async (req, res, next) => {
   const token = req.cookies.access_token;
+  console.log("token", token);
 
   if (!token) {
     res.status(401).json({ message: "acces denied" });

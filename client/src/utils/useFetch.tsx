@@ -6,12 +6,19 @@ const useFetch = <T,>(url: string) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (!url) return;
+
+    const controller = new AbortController();
     async function getData() {
       setLoading(true);
+      setError(undefined);
       try {
-        const res = await fetch(url);
+        const res = await fetch(url, {
+          signal: controller.signal,
+          credentials: "include",
+        });
         const json = await res.json();
-        setData(json.results ?? []);
+        setData(json ?? []);
       } catch (error: unknown) {
         const message =
           error instanceof Error ? error.message : "Erreur inconnue";
@@ -21,6 +28,7 @@ const useFetch = <T,>(url: string) => {
       }
     }
     getData();
+    return () => controller.abort();
   }, [url]);
 
   return { data, error, loading };

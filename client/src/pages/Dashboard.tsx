@@ -5,46 +5,52 @@ import { CiSquarePlus } from "react-icons/ci";
 import Header from "../components/Header";
 import Input from "../components/Input";
 import Row from "../components/Row";
+import useFetch from "../utils/useFetch";
 gsap.registerPlugin(useGSAP);
-// fake data
-const projectsData = [
-  {
-    id: 1,
-    title: "Portfolio Website",
-    description: "Personal portfolio built with React",
-  },
-  { id: 2, title: "E-commerce App", description: null },
-  {
-    id: 3,
-    title: "Task Manager",
-    description: "Simple task management API with Node.js",
-  },
-];
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+}
 
 function Dashboard() {
   // gerer le form
-  const [projects, setProjects] = useState(projectsData);
   const [formInput, setFormInput] = useState({ title: "", description: "" });
-  console.log(projects);
+
+  // fetch les donné de l api et remplacer projectsData
+  const { data } = useFetch<Project>("http://localhost:3310/api/v1/projects");
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setFormInput((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-
+  async function handleSubmit() {
     if (!formInput.title.trim()) {
       alert("Must have a title");
       return;
     }
     const newProject = {
-      id: Date.now(),
       title: formInput.title,
       description: formInput.description,
     };
-    setProjects([newProject, ...projects]);
+    try {
+      const res = await fetch("http://localhost:3310/api/v1/projects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(newProject),
+      });
+      if (!res.ok) {
+        throw new Error("Erreur lors de la création du projet");
+      }
+    } catch (error) {
+      console.error("Erreur POST:", error);
+      alert("Impossible de créer le projet");
+    }
 
     setFormInput({ title: "", description: "" });
   }
@@ -101,7 +107,7 @@ function Dashboard() {
         ref={container}
         className=" flex md:flex-col flex-wrap gap-2 align-middle  max-w-3xl m-auto"
       >
-        {projects.map((project, i) => (
+        {data.map((project, i) => (
           <Row
             key={project.id}
             isOpen={openIndex === i}
