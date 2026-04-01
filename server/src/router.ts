@@ -17,70 +17,20 @@ route.get("/api/v1/users", userController.browse);
 // , auth.verifyToken, auth.verifyRole([UserRole.ADMIN])
 route.get("/api/v1/me", auth.verifyToken, userController.readCurrentUser);
 // Projects
-route.get(
-  "/api/v1/projects",
-  auth.verifyToken,
-  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-  projectController.browse,
-);
-route.get(
-  "/api/v1/projects/:id",
-  auth.verifyToken,
-  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-  projectController.read,
-);
+route.get("/api/v1/projects", projectController.browse);
+route.get("/api/v1/projects/:id", projectController.read);
 
-route.post(
-  "/api/v1/projects",
-  auth.verifyToken,
-  auth.verifyRole([UserRole.ADMIN]),
-  projectController.add,
-);
-route.patch(
-  "/api/v1/projects/:id",
-  auth.verifyToken,
-  auth.verifyRole([UserRole.ADMIN]),
-  projectController.edit,
-);
-route.delete(
-  "/api/v1/projects/:id",
-  auth.verifyToken,
-  auth.verifyRole([UserRole.ADMIN]),
-  projectController.destroy,
-);
+route.post("/api/v1/projects", projectController.add);
+route.patch("/api/v1/projects/:id", projectController.edit);
+route.delete("/api/v1/projects/:id", projectController.destroy);
 
 // Tasks
-route.get(
-  "/api/v1/tasks",
-  auth.verifyToken,
-  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-  taskController.browse,
-);
-route.get(
-  "/api/v1/tasks/:id",
-  auth.verifyToken,
-  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-  taskController.read,
-);
+route.get("/api/v1/tasks", taskController.browse);
+route.get("/api/v1/tasks/:id", taskController.read);
 
-route.post(
-  "/api/v1/tasks",
-  auth.verifyToken,
-  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-  taskController.add,
-);
-route.patch(
-  "/api/v1/tasks/:id",
-  auth.verifyToken,
-  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-  taskController.edit,
-);
-route.delete(
-  "/api/v1/tasks/:id",
-  auth.verifyToken,
-  auth.verifyRole([UserRole.ADMIN, UserRole.COLLABORATOR]),
-  taskController.destroy,
-);
+route.post("/api/v1/tasks", taskController.add);
+route.patch("/api/v1/tasks/:id", taskController.edit);
+route.delete("/api/v1/tasks/:id", taskController.destroy);
 
 /* ************************************************************************* */
 

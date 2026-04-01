@@ -1,6 +1,6 @@
 import type IFormBtn from "../interfaces/IFormBtn";
 
-export default function Button({
+export default function FormBtn({
   children,
   type = "submit",
   onClick,
